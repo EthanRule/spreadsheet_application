@@ -27,8 +27,6 @@ namespace Spreadsheet_Ethan_Rule
                 dataGridView1.Rows[i - 1].HeaderCell.Value = number;
             }
             dataGridView1.RowHeadersWidth = 75;
-
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

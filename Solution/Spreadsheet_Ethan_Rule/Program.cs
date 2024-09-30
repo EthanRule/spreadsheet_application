@@ -1,5 +1,3 @@
-// Ethan Rule, WSU ID: 11714155
-
 namespace Spreadsheet_Ethan_Rule
 {
     internal static class Program

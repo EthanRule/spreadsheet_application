@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpreadsheetEngine
 {
-    internal class Spreadsheet
+    public class Spreadsheet
     {
         private Cell[,] cellMatrix;
         private readonly int columnCount;
@@ -52,7 +52,6 @@ namespace SpreadsheetEngine
                         columnNumber =  colChar - 'A' + 1;
                     }
 
-
                     string row = "";
                     int rowNumber = 0;
                     for (int i = 2;i < cell.Value.Length; i++)
@@ -61,8 +60,10 @@ namespace SpreadsheetEngine
                     }
                     rowNumber = int.Parse(row);
 
-                    if (rowNumber >= 0 && columnNumber >= 0 && rowNumber < this.rowCount && columnNumber < this.columnCount) {
-                    cell.Value = cellMatrix[rowNumber, columnNumber].Text;
+                    if (rowNumber >= 0 && columnNumber >= 0 && rowNumber < this.rowCount && columnNumber < this.columnCount)
+                    {
+                        cell.Value = cellMatrix[rowNumber, columnNumber].Text;
+                    }
                 }
             }
 

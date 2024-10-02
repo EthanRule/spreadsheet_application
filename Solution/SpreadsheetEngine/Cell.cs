@@ -38,10 +38,9 @@ namespace SpreadsheetEngine
             {
                 if (value == Text) { return; }
                 this.text = value;
-                {
-                    // Fire Property Changed Event. ?.Invoke used to prevent potential null ref
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
-                }
+                
+                // Fire Property Changed Event. ?.Invoke ensures there are subscribers to listen
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
             }
         }
 

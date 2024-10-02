@@ -40,28 +40,19 @@ namespace SpreadsheetEngine
                 this.text = value;
                 
                 // Fire Property Changed Event. ?.Invoke ensures there are subscribers to listen
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
             }
         }
 
         public string Value
         {
-            get
-            {
-                if (this.value != null && this.value[0] == '=')
-                {
-                    // evaluate the expression and return the value
-                    double expressionResult = 3.14;
+            get { return this.value; }
 
-                    return expressionResult.ToString();
-                }
-                return this.text;
-            }
-
-            protected set // ensure only the Spreadsheet Class can set this, but no others can.
+            internal set // ensure only the Spreadsheet Class can set this, but no others can.
             {
                 if (value == this.value) { return; }
                 this.value = value;
+
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
             }
         }

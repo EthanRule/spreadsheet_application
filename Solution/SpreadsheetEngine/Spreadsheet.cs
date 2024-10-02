@@ -35,6 +35,38 @@ namespace SpreadsheetEngine
 
         private void OnCellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == nameof(Cell.Text)) // using nameof() to prevent potential errors
+            {
+                var cell = (Cell)sender;
+                if (!string.IsNullOrEmpty(cell.Value) && cell.Value[0] != '=')
+                {
+                    cell.Value = cell.Text;
+                }
+                else if (!string.IsNullOrEmpty(cell.Value) && cell.Value[0] == '=')
+                {
+                    // copy 
+                    char colChar = cell.Value[1];
+                    int columnNumber = 0;
+                    if (colChar >= 'A' && colChar <= 'Z')
+                    {
+                        columnNumber =  colChar - 'A' + 1;
+                    }
+
+
+                    string row = "";
+                    int rowNumber = 0;
+                    for (int i = 2;i < cell.Value.Length; i++)
+                    {
+                        row += cell.Value[i];
+                    }
+                    rowNumber = int.Parse(row);
+
+                    if (rowNumber >= 0 && columnNumber >= 0 && rowNumber < this.rowCount && columnNumber < this.columnCount) {
+                    cell.Value = cellMatrix[rowNumber, columnNumber].Text;
+                }
+            }
+
+
             CellPropertyChanged?.Invoke(sender, e); // this can now be subscribed to from the UI layer
         }
 

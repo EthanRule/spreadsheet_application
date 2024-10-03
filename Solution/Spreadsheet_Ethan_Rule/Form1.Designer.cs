@@ -43,7 +43,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(801, 403);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellContentClick += DataGridView1_CellContentClick;
             // 
             // button1
             // 
@@ -53,7 +53,7 @@
             button1.TabIndex = 1;
             button1.Text = "Perform Demo";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += Button1_Click;
             // 
             // Form1
             // 

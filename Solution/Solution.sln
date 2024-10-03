@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spreadsheet_Ethan_Rule", "Spreadsheet_Ethan_Rule\Spreadsheet_Ethan_Rule.csproj", "{60CA3F8D-9CAF-40D8-BAE5-F9D5606280F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spreadsheet_Ethan_Rule", "Spreadsheet_Ethan_Rule\Spreadsheet_Ethan_Rule.csproj", "{60CA3F8D-9CAF-40D8-BAE5-F9D5606280F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadsheetEngine", "SpreadsheetEngine\SpreadsheetEngine.csproj", "{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadsheetEngine", "SpreadsheetEngine\SpreadsheetEngine.csproj", "{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{7B321B05-00AE-4821-8C49-309B982116D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B321B05-00AE-4821-8C49-309B982116D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B321B05-00AE-4821-8C49-309B982116D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B321B05-00AE-4821-8C49-309B982116D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B321B05-00AE-4821-8C49-309B982116D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

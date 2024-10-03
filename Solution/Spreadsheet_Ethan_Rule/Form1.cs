@@ -1,5 +1,6 @@
 using SpreadsheetEngine;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Spreadsheet_Ethan_Rule
 {
@@ -11,14 +12,13 @@ namespace Spreadsheet_Ethan_Rule
         {
             InitializeComponent();
             InitializeDataGrid();
-            spreadsheet = new Spreadsheet(26, 50);
+            spreadsheet = new Spreadsheet(50, 26);
             spreadsheet.CellPropertyChanged += OnCellPropertyChanged;
         }
 
         private void OnCellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var cell = (Cell)sender;
-
             int row = cell.RowIndex;
             int col = cell.ColumnIndex;
 
@@ -37,7 +37,7 @@ namespace Spreadsheet_Ethan_Rule
             }
 
             // add rows and row headers. Also adjust default header width.
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i <= 50; i++)
             {
                 string number = i.ToString();
                 dataGridView1.Rows.Add();
@@ -84,7 +84,7 @@ namespace Spreadsheet_Ethan_Rule
                 Cell cell = spreadsheet.GetCell(i, 0);
                 if (cell != null)
                 {
-                    cell.Text = $"=B{i}";
+                    cell.Text = $"=B{i + 1}";
                 }
             }
 

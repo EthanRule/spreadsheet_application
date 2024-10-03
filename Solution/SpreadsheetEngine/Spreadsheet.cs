@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 
 namespace SpreadsheetEngine
 {
@@ -30,7 +32,6 @@ namespace SpreadsheetEngine
                     this.cellMatrix[i, j].PropertyChanged += OnCellPropertyChanged; // subscribe to cell
                 }
             }
-
         }
 
         private void OnCellPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -38,27 +39,28 @@ namespace SpreadsheetEngine
             if (e.PropertyName == nameof(Cell.Text)) // using nameof() to prevent potential errors
             {
                 var cell = (Cell)sender;
-                if (!string.IsNullOrEmpty(cell.Value) && cell.Value[0] != '=')
+                if (!string.IsNullOrEmpty(cell.Text) && cell.Text[0] != '=')
                 {
                     cell.Value = cell.Text;
                 }
-                else if (!string.IsNullOrEmpty(cell.Value) && cell.Value[0] == '=')
+                else if (!string.IsNullOrEmpty(cell.Text) && cell.Text[0] == '=')
                 {
                     // copy 
-                    char colChar = cell.Value[1];
+                    char colChar = cell.Text[1];
                     int columnNumber = 0;
                     if (colChar >= 'A' && colChar <= 'Z')
                     {
-                        columnNumber =  colChar - 'A' + 1;
+                        columnNumber =  colChar - 'A';
                     }
 
                     string row = "";
                     int rowNumber = 0;
-                    for (int i = 2;i < cell.Value.Length; i++)
+                    for (int i = 2;i < cell.Text.Length; i++)
                     {
-                        row += cell.Value[i];
+                        row += cell.Text[i];
                     }
-                    rowNumber = int.Parse(row);
+                    rowNumber = int.Parse(row) - 1;
+
 
                     if (rowNumber >= 0 && columnNumber >= 0 && rowNumber < this.rowCount && columnNumber < this.columnCount)
                     {
@@ -91,7 +93,7 @@ namespace SpreadsheetEngine
             get { return this.rowCount; }
         }
 
-        // Creating a class that inherits the Cell class to instantiate the abstract class.
+        // Creating a class that inherits the Cell class to instantiate the abstract base class.
         private class SpreadsheetCell : Cell
         {
             public SpreadsheetCell(int row, int column) : base(row, column) { }

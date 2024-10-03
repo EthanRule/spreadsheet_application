@@ -1,4 +1,10 @@
-﻿namespace SpreadsheetEngine
+﻿//-----------------------------------------------------------------------
+// <copyright file="Spreadsheet.cs" company="Ethan Rule / WSU ID: 11714155">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace SpreadsheetEngine
 {
     using System.ComponentModel;
 

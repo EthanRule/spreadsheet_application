@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace SpreadsheetEngine.ExpressionTree
 {
-    internal class ExpressionTree
+    public class ExpressionTree
     {
         private Node root;
         private Dictionary<string, double> variables;

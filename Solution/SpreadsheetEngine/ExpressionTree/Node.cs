@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpreadsheetEngine.ExpressionTree
 {
-    internal class Node
+    public abstract class Node
     {
+        public abstract double Evaluate();
     }
 }

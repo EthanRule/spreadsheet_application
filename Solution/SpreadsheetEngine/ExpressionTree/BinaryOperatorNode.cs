@@ -22,7 +22,7 @@ namespace SpreadsheetEngine.ExpressionTree
         public override double Evaluate()
         {
            switch (this._operator)
-            {
+           {
                 case '+':
                     return left.Evaluate() + right.Evaluate();
                 case '-':
@@ -31,7 +31,9 @@ namespace SpreadsheetEngine.ExpressionTree
                     return left.Evaluate() * right.Evaluate();
                 case '/':
                     return left.Evaluate() / right.Evaluate();
-            }
+                default:
+                    throw new NotImplementedException();
+           }
         }
     }
 }

@@ -21,9 +21,14 @@ namespace SpreadsheetEngine.ExpressionTree
 
         private Node ParseExpression(string expression)
         {
+            if (expression == "")
+            {
+                return null;
+            }
+
             StringBuilder item = new StringBuilder();
             Node leftNode = null;
-            char currentOperator = '\0';
+            char currentOperator = '\0'; // ensure parenthesis are never an operator. but still needs to be handled to group expressions. add '^'?
 
             for (int i = 0; i < expression.Length; i++)
             {

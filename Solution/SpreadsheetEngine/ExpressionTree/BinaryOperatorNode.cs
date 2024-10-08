@@ -19,7 +19,7 @@ namespace SpreadsheetEngine.ExpressionTree
             this.right = rightNode;
         }
 
-        public override double Evaluate()
+        public override double Evaluate() // implment following order of operations
         {
            switch (this._operator)
            {

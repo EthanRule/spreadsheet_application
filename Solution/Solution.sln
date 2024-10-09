@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spreadsheet_Ethan_Rule", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadsheetEngine", "SpreadsheetEngine\SpreadsheetEngine.csproj", "{D6BE765C-C8F9-45D5-9EA6-6E5D5533D604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{7B321B05-00AE-4821-8C49-309B982116D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "TestProject1\TestProject1.csproj", "{7B321B05-00AE-4821-8C49-309B982116D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{D15CE23D-FBB2-4131-BFBE-283814EDB6BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7B321B05-00AE-4821-8C49-309B982116D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B321B05-00AE-4821-8C49-309B982116D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B321B05-00AE-4821-8C49-309B982116D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15CE23D-FBB2-4131-BFBE-283814EDB6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15CE23D-FBB2-4131-BFBE-283814EDB6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15CE23D-FBB2-4131-BFBE-283814EDB6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15CE23D-FBB2-4131-BFBE-283814EDB6BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

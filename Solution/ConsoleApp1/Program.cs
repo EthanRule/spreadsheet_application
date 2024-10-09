@@ -1,12 +1,21 @@
-﻿namespace ConsoleApp1
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Ethan Rule / WSU ID: 11714155">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace ConsoleApp1
 {
     using SpreadsheetEngine.ExpressionTree;
+
+    /// <summary>
+    /// ExpressionTree Program class.
+    /// </summary>
     internal static class Program
     {
         private static void Main()
         {
-            string currentExpression = "A1-12-C1";
-
+            string currentExpression = string.Empty;
             ExpressionTree tree = new ExpressionTree(currentExpression);
 
             while (true)
@@ -17,7 +26,7 @@
                 Console.WriteLine("3 = Evaluate tree");
                 Console.WriteLine("4 = Quit");
 
-                string input = "";
+                string input = string.Empty;
 
                 while (input != "1" && input != "2" && input != "3" && input != "4")
                 {
@@ -30,6 +39,7 @@
                         Console.Write("Enter a new expression: ");
                         string expression = Console.ReadLine();
                         tree.SetExpression(expression);
+                        currentExpression = tree.GetExpression();
                         break;
                     case "2": // Set a variable value
                         Console.Write("Enter a variable name: ");
@@ -52,4 +62,3 @@
         }
     }
 }
-

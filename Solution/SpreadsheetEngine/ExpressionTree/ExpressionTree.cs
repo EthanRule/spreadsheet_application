@@ -1,18 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ExpressionTree.cs" company="Ethan Rule / WSU ID: 11714155">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
 namespace SpreadsheetEngine.ExpressionTree
 {
+    using System;
+    using System.Collections.Generic;
     using System.Text;
-    using System.Threading.Tasks;
-    using System.Xml.Serialization;
 
+    /// <summary>
+    /// ExpresisonTree class.
+    /// </summary>
     public class ExpressionTree
     {
         private Node root;
         private Dictionary<string, double> variables;
         private string expression;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
+        /// </summary>
+        /// <param name="expression">Expression used to build tree.</param>
         public ExpressionTree(string expression)
         {
             this.expression = expression;
@@ -20,20 +30,65 @@ namespace SpreadsheetEngine.ExpressionTree
             this.root = this.ParseExpression(expression);
         }
 
+        private enum PrevIndex // used to track multiple operators used back to back. like "1++2"
+        {
+            Number,
+            Variable,
+            Operator,
+            None,
+        }
+
+        /// <summary>
+        /// Returns the varible from the variables dict.
+        /// </summary>
+        /// <param name="key">Variable name.</param>
+        /// <returns>Variable value.</returns>
         public double GetVariable(string key)
         {
             return this.variables[key];
         }
 
+        /// <summary>
+        /// Sets the expression. This allows for console testing aswell as re-entering expresion after instatiation.
+        /// </summary>
+        /// <param name="expression">requires expression.</param>
         public void SetExpression(string expression)
         {
             this.expression = expression;
             this.root = this.ParseExpression(expression);
         }
 
+        /// <summary>
+        /// Gets the expression from the tree.
+        /// </summary>
+        /// <returns>returns expression.</returns>
+        public string GetExpression()
+        {
+            return this.expression;
+        }
+
+        /// <summary>
+        /// Sets a variable in the variables dict.
+        /// </summary>
+        /// <param name="variableName">variable name.</param>
+        /// <param name="variableValue">variable value.</param>
+        public void SetVariable(string variableName, double variableValue)
+        {
+            this.variables[variableName] = variableValue;
+        }
+
+        /// <summary>
+        /// Evaluates tree.
+        /// </summary>
+        /// <returns>The tree evaluation result.</returns>
+        public double Evaluate() // bottom up evaluation
+        {
+            return this.root.Evaluate();
+        }
+
         private Node ParseExpression(string expression)
         {
-            if (expression == "")
+            if (expression == string.Empty)
             {
                 return null;
             }
@@ -41,11 +96,17 @@ namespace SpreadsheetEngine.ExpressionTree
             StringBuilder item = new StringBuilder();
             Node leftNode = null;
             char currentOperator = '\0'; // ensure parenthesis are never an operator. but still needs to be handled to group expressions. add '^'?
+            PrevIndex prev = PrevIndex.None;
 
             for (int i = 0; i < expression.Length; i++)
             {
                 // check for variable
                 char currentIndex = expression[i];
+
+                if (currentIndex == ' ')
+                {
+                    continue;
+                }
 
                 if (char.IsLetter(currentIndex))
                 {
@@ -55,6 +116,12 @@ namespace SpreadsheetEngine.ExpressionTree
                     for (int j = i + 1; j < expression.Length; j++)
                     {
                         currentIndex = expression[j];
+
+                        if (currentIndex == ' ')
+                        {
+                            continue;
+                        }
+
                         if (char.IsLetterOrDigit(currentIndex)) // allows for multi letter variables.
                         {
                             item.Append(expression[j]);
@@ -67,7 +134,6 @@ namespace SpreadsheetEngine.ExpressionTree
                     }
 
                     string variableName = item.ToString();
-                    Console.WriteLine($"Parsed variable: {variableName}");
 
                     Node variable = new VariableNode(item.ToString(), this.variables);
                     if (leftNode == null)
@@ -76,11 +142,11 @@ namespace SpreadsheetEngine.ExpressionTree
                     }
                     else
                     {
-                        Console.WriteLine($"Adding binary operator node: {currentOperator} between {leftNode.GetType()} and {variable.GetType()}");
                         leftNode = new BinaryOperatorNode(currentOperator, leftNode, variable);
                     }
 
                     item.Clear();
+                    prev = PrevIndex.Variable;
                 }
                 else if (char.IsDigit(currentIndex))
                 {
@@ -89,6 +155,12 @@ namespace SpreadsheetEngine.ExpressionTree
                     for (int j = i + 1; j < expression.Length; j++)
                     {
                         currentIndex = expression[j];
+
+                        if (currentIndex == ' ')
+                        {
+                            continue;
+                        }
+
                         if (char.IsDigit(currentIndex))
                         {
                             item.Append(expression[j]);
@@ -101,7 +173,6 @@ namespace SpreadsheetEngine.ExpressionTree
                     }
 
                     double number = double.Parse(item.ToString());
-                    Console.WriteLine($"Parsed constant: {number}");
                     Node constant = new ConstantValueNode(number);
 
                     if (leftNode == null)
@@ -110,31 +181,25 @@ namespace SpreadsheetEngine.ExpressionTree
                     }
                     else
                     {
-                        Console.WriteLine($"Adding binary operator node: {currentOperator} between {leftNode.GetType()} and {constant.GetType()}");
                         leftNode = new BinaryOperatorNode(currentOperator, leftNode, constant);
                     }
 
                     item.Clear();
+                    prev = PrevIndex.Number;
                 }
                 else if (currentIndex == '+' || currentIndex == '-' || currentIndex == '*' || currentIndex == '/')
                 {
+                    if (prev == PrevIndex.Operator)
+                    {
+                        throw new ArgumentException("Consecuitive Binary Operators Not Allowed");
+                    }
+
                     currentOperator = currentIndex;
-                    Console.WriteLine($"Parsed operator: {currentOperator}");
+                    prev = PrevIndex.Operator;
                 }
             }
 
             return leftNode;
-        }
-
-        public void SetVariable(string variableName, double variableValue)
-        {
-            Console.WriteLine($"Setting variable {variableName} = {variableValue}");
-            this.variables[variableName] = variableValue;
-        }
-
-        public double Evaluate() // bottom up evaluation
-        {
-            return this.root.Evaluate();
         }
     }
 }

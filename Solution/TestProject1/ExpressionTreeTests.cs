@@ -1,4 +1,10 @@
-﻿namespace TestProject1
+﻿//-----------------------------------------------------------------------
+// <copyright file="ExpressionTreeTests.cs" company="Ethan Rule / WSU ID: 11714155">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace TestProject1
 {
     using System.ComponentModel;
     using System.Reflection;
@@ -8,7 +14,7 @@
     /// <summary>
     /// Testing class.
     /// </summary>
-    public class ExpresisonTreeTests
+    public class ExpressionTreeTests
     {
         /// <summary>
         /// Ensures basic addition works.
@@ -58,8 +64,11 @@
             Assert.That(number, Is.EqualTo(1));
         }
 
+        /// <summary>
+        /// Ensures setting and getting variables work.
+        /// </summary>
         [Test]
-        public void TestSetVariable() // ensure the variables are being set properly
+        public void TestSetGetVariable() // ensure the variables are being set properly
         {
             ExpressionTree tree = new ExpressionTree("1+1");
             tree.SetVariable("A1", 1);
@@ -67,6 +76,9 @@
             Assert.That(tree.GetVariable("A1"), Is.EqualTo(1));
         }
 
+        /// <summary>
+        /// Ensures variable addition works.
+        /// </summary>
         [Test]
         public void TestExpressionTreeMultipleVariableAddition()
         {
@@ -88,6 +100,9 @@
             Assert.That(expected, Is.EqualTo(result));
         }
 
+        /// <summary>
+        /// Ensures variable subtraction works.
+        /// </summary>
         [Test]
         public void TestExpressionTreeMultipleVariableSubtraction()
         {
@@ -109,6 +124,9 @@
             Assert.That(expected, Is.EqualTo(result));
         }
 
+        /// <summary>
+        /// Ensures variable multiplication works.
+        /// </summary>
         [Test]
         public void TestExpressionTreeMultipleVariableMultiplication()
         {
@@ -123,6 +141,9 @@
             Assert.That(expected, Is.EqualTo(result));
         }
 
+        /// <summary>
+        /// Ensures variable division works.
+        /// </summary>
         [Test]
         public void TestExpressionTreeMultipleVariableDivision()
         {
@@ -133,15 +154,110 @@
             tree.SetExpression("A1/A3/Z2");
 
             double result = tree.Evaluate();
-            double expected = 4/2/2;
+            double expected = 4 / 2 / 2;
             Assert.That(expected, Is.EqualTo(result));
         }
 
+        /// <summary>
+        /// Ensures you cant divide by zero.
+        /// </summary>
         [Test]
         public void TestExpressionTreeDivisionByZero()
         {
             ExpressionTree tree = new ExpressionTree("20/0");
             Assert.Throws<DivideByZeroException>(() => tree.Evaluate());
+        }
+
+        /// <summary>
+        /// Ensure top node is a binary operator node.
+        /// </summary>
+        [Test]
+        public void TestParseExpressionTopNode()
+        {
+            ExpressionTree tree = new ExpressionTree(string.Empty);
+            string testExpression = "5+10+24+90";
+
+            MethodInfo method = this.GetPrivateMethod("ParseExpression");
+            Node resultNode = (Node)method.Invoke(tree, new object[] { testExpression });
+            Assert.That(resultNode, Is.InstanceOf<BinaryOperatorNode>());
+        }
+
+        /// <summary>
+        /// Ensure single nodes work.
+        /// </summary>
+        [Test]
+        public void TestParseExpressionSingleNode()
+        {
+            ExpressionTree tree = new ExpressionTree(string.Empty);
+            string testExpression = "90";
+
+            MethodInfo method = this.GetPrivateMethod("ParseExpression");
+            Node resultNode = (Node)method.Invoke(tree, new object[] { testExpression });
+            Assert.That(resultNode.Evaluate(), Is.EqualTo(90));
+        }
+
+        /// <summary>
+        /// Ensure whitespace is skipped.
+        /// </summary>
+        [Test]
+        public void TestParseExpressionWhiteSpace()
+        {
+            ExpressionTree tree = new ExpressionTree("1 + 2");
+            Assert.That(tree.Evaluate(), Is.EqualTo(3));
+        }
+
+        /// <summary>
+        /// Ensure two consecutive binary operators cannot be inputted. e.g. 1++2.
+        /// </summary>
+        [Test]
+        public void TestTwoConsecutiveBinaryOperators()
+        {
+            string expression = "1++2";
+            var ex = Assert.Throws<ArgumentException>(() => new ExpressionTree(expression));
+            string expected = "Consecuitive Binary Operators Not Allowed";
+            Assert.That(expected, Is.EqualTo(ex.Message));
+        }
+
+        /// <summary>
+        /// Ensure two consecutive binary operators cannot be inputted. e.g. 1++2.
+        /// </summary>
+        [Test]
+        public void TestThreeConsecutiveBinaryOperators()
+        {
+            string expression = "1*/-2";
+            var ex = Assert.Throws<ArgumentException>(() => new ExpressionTree(expression));
+            string expected = "Consecuitive Binary Operators Not Allowed";
+            Assert.That(expected, Is.EqualTo(ex.Message));
+        }
+
+        /// <summary>
+        /// Ensure variables can be set after the expression has been defined. This is the demo example.
+        /// </summary>
+        [Test]
+        public void TestSetVariablesAfterExpression()
+        {
+            string expression = "Hello-12-World";
+            ExpressionTree tree = new ExpressionTree(expression);
+            tree.SetVariable("Hello", 42);
+            tree.SetVariable("World", 20);
+            double result = tree.Evaluate();
+            double expected = 42 - 12 - 20;
+            Assert.That(expected, Is.EqualTo(result));
+        }
+
+        /// <summary>
+        /// Private method getter.
+        /// </summary>
+        private MethodInfo GetPrivateMethod(string methodName) // getter for private methods from Spreadsheet
+        {
+            var method = typeof(ExpressionTree).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (method == null)
+            {
+                Assert.Fail(methodName);
+            }
+
+            return method;
         }
     }
 }

@@ -26,14 +26,12 @@
 
                 switch (input)
                 {
-                    case "1":
+                    case "1": // Enter a new expression
                         Console.Write("Enter a new expression: ");
                         string expression = Console.ReadLine();
-                        
-                        tree = new ExpressionTree(expression);
-
+                        tree.SetExpression(expression);
                         break;
-                    case "2":
+                    case "2": // Set a variable value
                         Console.Write("Enter a variable name: ");
                         string variableName = Console.ReadLine();
                         Console.Write("Enter a variable value: ");
@@ -41,12 +39,11 @@
                         tree.SetVariable(variableName, double.Parse(variableValue));
 
                         break;
-                    case "3":
-                        Console.WriteLine("Evaluating tree...");
-                        tree.Evaluate();
+                    case "3": // Evaluate tree
+                        Console.WriteLine(tree.Evaluate());
 
                         break;
-                    case "4":
+                    case "4": // Quit
                         Console.WriteLine("Done");
                         Environment.Exit(0);
                         break;

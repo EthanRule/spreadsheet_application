@@ -9,16 +9,24 @@ namespace SpreadsheetEngine.ExpressionTree
     internal class VariableNode : Node
     {
         private string value;
+        private Dictionary<string, double> variables;
 
-        public VariableNode(string value)
+        public VariableNode(string value, Dictionary<string, double> variables)
         {
             this.value = value;
+            this.variables = variables ?? new Dictionary<string, double>(); // Ensure variables is not null
         }
 
         public override double Evaluate()
         {
-            // probably need a getter to get this value from the spreadsheet.
-            return 0.0;
+            // https://stackoverflow.com/questions/52362941/in-line-trygetvalue-in-if-conditon-and-evaluate-its-value
+            double variableValue;
+            if (this.variables.TryGetValue(this.value, out variableValue))
+            {
+                return variableValue;
+            }
+
+            return 0;
         }
     }
 }

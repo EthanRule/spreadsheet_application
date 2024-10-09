@@ -21,19 +21,27 @@ namespace SpreadsheetEngine.ExpressionTree
 
         public override double Evaluate() // implment following order of operations
         {
-           switch (this._operator)
-           {
+            double leftValue = this.left.Evaluate();
+            double rightValue = this.right.Evaluate();
+
+            switch (this._operator)
+            {
                 case '+':
-                    return left.Evaluate() + right.Evaluate();
+                    return leftValue + rightValue;
                 case '-':
-                    return left.Evaluate() - right.Evaluate();
+                    return leftValue - rightValue;
                 case '*':
-                    return left.Evaluate() * right.Evaluate();
+                    return leftValue * rightValue;
                 case '/':
-                    return left.Evaluate() / right.Evaluate();
+                    if (this.right.Evaluate() == 0)
+                    {
+                        throw new DivideByZeroException();
+                    }
+
+                    return leftValue / rightValue;
                 default:
                     throw new NotImplementedException();
-           }
+            }
         }
     }
 }

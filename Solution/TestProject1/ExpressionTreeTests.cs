@@ -6,9 +6,7 @@
 
 namespace TestProject1
 {
-    using System.ComponentModel;
     using System.Reflection;
-    using SpreadsheetEngine;
     using SpreadsheetEngine.ExpressionTree;
 
     /// <summary>

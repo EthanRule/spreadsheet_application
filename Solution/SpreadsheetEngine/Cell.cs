@@ -6,7 +6,6 @@
 
 namespace SpreadsheetEngine
 {
-    using System;
     using System.ComponentModel;
 
     /// <summary>

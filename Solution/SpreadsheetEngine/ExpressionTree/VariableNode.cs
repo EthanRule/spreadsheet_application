@@ -7,6 +7,7 @@
 namespace SpreadsheetEngine.ExpressionTree
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     /// VariableNode class.
@@ -37,10 +38,13 @@ namespace SpreadsheetEngine.ExpressionTree
             double variableValue;
             if (this.variables.TryGetValue(this.value, out variableValue))
             {
+                Debug.WriteLine("Found Variable in Dict");
                 return variableValue;
             }
-
-            return 0;
+            else
+            {
+                throw new FormatException($"No variable of {this.value}");
+            }
         }
     }
 }

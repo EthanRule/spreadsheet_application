@@ -6,17 +6,11 @@
 
 namespace SpreadsheetEngine.ExpressionTree
 {
-    using System;
-
     /// <summary>
-    /// BinaryOperatorNode class.
+    /// BinaryOperatorNode abstract class that is used as the base class for differing operators created in the OperatorNodeFactory.
     /// </summary>
-    internal class BinaryOperatorNode : Node
+    public abstract class BinaryOperatorNode : Node
     {
-        private char binaryOperator;
-        private Node left;
-        private Node right;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryOperatorNode"/> class.
         /// </summary>
@@ -25,40 +19,30 @@ namespace SpreadsheetEngine.ExpressionTree
         /// <param name="rightNode">Right child.</param>
         public BinaryOperatorNode(char binaryOperator, Node leftNode, Node rightNode)
         {
-            this.binaryOperator = binaryOperator;
-            this.left = leftNode;
-            this.right = rightNode;
+            this.BinaryOperator = binaryOperator;
+            this.Left = leftNode;
+            this.Right = rightNode;
         }
 
         /// <summary>
-        /// Evaluates Left and Right child nodes.
+        /// Gets binary operator.
         /// </summary>
-        /// <returns>value of left and right child when compared with the binary operator.</returns>
-        /// <exception cref="DivideByZeroException">Left child is divided by zero.</exception>
-        /// <exception cref="NotImplementedException">Binary operator does not exist in this context.</exception>
-        public override double Evaluate() // TODO: implment order of operations
-        {
-            double leftValue = this.left.Evaluate();
-            double rightValue = this.right.Evaluate();
+        protected char BinaryOperator { get; }
 
-            switch (this.binaryOperator)
-            {
-                case '+':
-                    return leftValue + rightValue;
-                case '-':
-                    return leftValue - rightValue;
-                case '*':
-                    return leftValue * rightValue;
-                case '/':
-                    if (this.right.Evaluate() == 0)
-                    {
-                        throw new DivideByZeroException();
-                    }
+        /// <summary>
+        /// Gets or Sets Left child node.
+        /// </summary>
+        protected Node Left { get; set; }
 
-                    return leftValue / rightValue;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
+        /// <summary>
+        /// Gets or sets Right child node.
+        /// </summary>
+        protected Node Right { get; set; }
+
+        /// <summary>
+        /// Recursive evaluate call. This is further overridden in the specific operator node clases.
+        /// </summary>
+        /// <returns>double number.</returns>
+        public override abstract double Evaluate(); // This will be implemented in the subclasses
     }
 }

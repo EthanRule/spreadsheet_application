@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<spreadsheet>
+  <cell name="A1">
+    <text>=20</text>
+  </cell>
+  <cell name="A2">
+    <text>=30</text>
+  </cell>
+  <cell name="A3">
+    <text>=A1+A2</text>
+  </cell>
+</spreadsheet>

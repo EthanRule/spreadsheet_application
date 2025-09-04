@@ -3,6 +3,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
+#pragma warning disable CS8600 // mute null ref warnings.
+#pragma warning disable CS8604
 
 namespace ConsoleApp1
 {

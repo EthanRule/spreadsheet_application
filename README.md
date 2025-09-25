@@ -1,2 +1,1 @@
-# CptS321-Ethan_Rule-HW0
-WSU_ID: 11714155
+
